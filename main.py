@@ -1,11 +1,14 @@
 import pokedex
+import os
 import pokemon
+import pokeconstantes
+import json
 
 comando_usuario = 0 #Flag / Bandera
 
-while comando_usuario != 5:
-    print("""--------------- DUELOS POKEMON --------------
-            Bienvenid@ a venta de pasajes online.
+while comando_usuario != 4:
+    print("""--------------- POKEMON --------------
+            Elija su opción:
             (1) Pokedex
             (2) Duelo Pokemon
             (3) Estadisticas de Batalla
@@ -18,29 +21,55 @@ while comando_usuario != 5:
         print("      ERROR: Por favor, ingrese un número con el formato solicitado.        ")
         print("          ---------------------------------------------------------         ")
 
+
+
+# MUESTRA POKEDEX #
     if comando_usuario == 1:
-        print(pokedex.registro_pokedex)
+        os.system('cls')
+        for key in pokedex.registro_pokedex:
+            print(key)
+        try:
+            seleccion_detalle = int(input("Ingrese el número del Pokemon que desea revisar: "))
+            if seleccion_detalle in range(1, 10):
+                print(pokedex.registro_pokedex[seleccion_detalle])
+        except:
+            print("Debe ingresar un número entre 1 y 9.")
+
+
+
+# BATALLA #
     elif comando_usuario == 2:
-        pass
+
+        os.system('cls')
+        print("          ---------------------------------------------------------         ")
+        print("                      D U E L O   P O K E M O N                             ")
+        print("          ---------------------------------------------------------         ")
+
+        entrenador_1 = input("Ingrese nombre de entrenador 1 : ")
+        entrenador_2 = input("Ingrese nombre de entrenador 2 : ")
+        try:
+            eleccion_pokemon_1 = int(input("Entrenador 1, elija un Pokemon de la Pokedex ingresando su ID: "))
+        except:
+            print("El ID ingresado no es válido, ingrese un número del 1 al 10. ")
+        def pedir_accion(pokemon):
+            comando = None
+            while not comando:
+                prompt_comando = input("Qué debería hacer")
+
+
+# LOG DE COMBATE #
     elif comando_usuario == 3:
-        pass
+        os.system('cls')
+        print("          ---------------------------------------------------------         ")
+        print("                      E S T A D I S T I C A S                               ")
+        print("          ---------------------------------------------------------         ")
+
     elif comando_usuario == 4:
-        pass
+        print("Saliendo del juego... Gracias por jugar.")
 
 
 # Crea 9 Pokemon estandar al iniciar el script
 
-if __name__ == '__main__':
 
-    Bulbasaur = pokemon.TipoHierba("Bulbasaur", 1, 100, "Agua", "Hierba", "Fuego")
-    Ivysaur = pokemon.TipoHierba("Ivysaur", 2, 1000, "Agua", "Hierba", "Fuego")
-    Venusaur = pokemon.TipoHierba("Venusaur", 3, 10000, "Agua", "Hierba", "Fuego")
 
-    Squirtle = pokemon.TipoAgua("Squirtle", 4, 100, "Agua", "Hierba", "Fuego")
-    Wartortle = pokemon.TipoAgua("Wartortle", 5, 1000, "Agua", "Hierba", "Fuego")
-    Blastoise = pokemon.TipoAgua("Blastoise", 6, 1000, "Agua", "Hierba", "Fuego")
-
-    Charmander = pokemon.TipoFuego("Charmander", 7, 100, "Fuego", "Agua", "Hierba")
-    Charmeleon = pokemon.TipoFuego("Charmeleon", 8, 1000, "Fuego", "Agua", "Hierba")
-    Charizard = pokemon.TipoFuego("Charizard", 9, 10000, "Fuego", "Agua", "Hierba")
 
