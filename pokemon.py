@@ -23,8 +23,6 @@ class Pokemon:
     @nombre.setter
     def nombre(self, nombre):
         self._nombre_pokemon = nombre
-    
-
 
 
     def autoRegeneracion(self):
