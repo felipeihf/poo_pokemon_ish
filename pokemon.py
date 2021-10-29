@@ -4,19 +4,31 @@ import random
 
 class Pokemon:
     def __init__(self, nombre_pkm, id_pkm, pv_pkm, pa_pkm, tipo_pkm, debilidad, fortaleza):
-        self.nombre_pokemon = nombre_pkm
-        self.id_pokemon = id_pkm
-        self.pv_actuales = pv_pkm
-        self.pa_pokemon = pa_pkm
-        self.tipo_pokemon = tipo_pkm
-        self.debilidad = debilidad
-        self.fortaleza = fortaleza
+        self._nombre_pokemon = nombre_pkm
+        self._id_pokemon = id_pkm
+        self._pv_actuales = pv_pkm
+        self._pa_pokemon = pa_pkm
+        self._tipo_pokemon = tipo_pkm
+        self._debilidad = debilidad
+        self._fortaleza = fortaleza
 
     def atacar(self):
         return self.pa_pokemon
 
+    #Getters y Setters (excepto para id, tipos, debilidad y fortaleza)
+    @property
+    def nombre(self):
+        return self._nombre_pokemon
+
+    @nombre.setter
+    def nombre(self, nombre):
+        self._nombre_pokemon = nombre
+    
+
+
+
     def autoRegeneracion(self):
-        if self.pv_pokemon <= 100:
+        if self.pv_actuales <= 100:
             self.pv_actuales += random.randint(1, 5)
         elif self.pv_actuales> 100 and self.pv_actuales <= 1000:
             self.pv_actuales += random.randint(10, 50)
@@ -57,26 +69,7 @@ class TipoFuego(Pokemon):
 
 # ---------------------#
 
-# INICIO SISTEMA DE JUEGO #
 
-class BatallaPokemon:
-
-    def __init__(self, poke1, poke2):
-        self.turnoactual = 0
-        self.pokemon1 = poke1
-        self.pokemon2 = poke2
-
-    def termina_batalla(self):
-        pass
-
-
-class TurnoEntrenador:
-
-    pass
-
-
-class ComandoJugador:
-    pass
 
 
 

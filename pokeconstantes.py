@@ -2,9 +2,9 @@ import pokemon
 import pokedex
 
 
-BULBASAUR = pokemon.TipoHierba("Bulbasaur", 1, 100, 10, "Agua", "Hierba", "Fuego")
-IVYSAUR = pokemon.TipoHierba("Ivysaur", 2, 1000, 100, "Agua", "Hierba", "Fuego")
-VENUSAUR = pokemon.TipoHierba("Venusaur", 3, 10000, 1000, "Agua", "Hierba", "Fuego")
+BULBASAUR = pokemon.TipoHierba("Bulbasaur", 1, 100, 10, "Hierba", "Fuego", "Agua")
+IVYSAUR = pokemon.TipoHierba("Ivysaur", 2, 1000, 100, "Hierba", "Fuego", "Agua")
+VENUSAUR = pokemon.TipoHierba("Venusaur", 3, 10000, 1000, "Hierba", "Fuego", "Agua")
 
 SQUIRTLE = pokemon.TipoAgua("Squirtle", 4, 100, 10, "Agua", "Hierba", "Fuego")
 WARTORTLE = pokemon.TipoAgua("Wartortle", 5, 1000, 100, "Agua", "Hierba", "Fuego")
