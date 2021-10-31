@@ -1,17 +1,17 @@
 import pokeconstantes
 import json
-from pokemon import TipoAgua, TipoFuego, TipoHierba
+from pokemon import *
 
 registro_pokedex = {'Pokedex': 'Pokemon Iniciales y Evoluciones',
-                    '#1': pokeconstantes.BULBASAUR.nombre,
-                    '#2': pokeconstantes.IVYSAUR.nombre,
-                    '#3': pokeconstantes.VENUSAUR.nombre,
-                    '#4': pokeconstantes.SQUIRTLE.nombre,
-                    '#5': pokeconstantes.WARTORTLE.nombre,
-                    '#6': pokeconstantes.BLASTOISE.nombre,
-                    '#7': pokeconstantes.CHARMANDER.nombre,
-                    '#8': pokeconstantes.CHARMELEON.nombre,
-                    '#9': pokeconstantes.CHARIZARD.nombre,}
+                    '#1': pokeconstantes.BULBASAUR.nombre_pokemon,
+                    '#2': pokeconstantes.IVYSAUR.nombre_pokemon,
+                    '#3': pokeconstantes.VENUSAUR.nombre_pokemon,
+                    '#4': pokeconstantes.SQUIRTLE.nombre_pokemon,
+                    '#5': pokeconstantes.WARTORTLE.nombre_pokemon,
+                    '#6': pokeconstantes.BLASTOISE.nombre_pokemon,
+                    '#7': pokeconstantes.CHARMANDER.nombre_pokemon,
+                    '#8': pokeconstantes.CHARMELEON.nombre_pokemon,
+                    '#9': pokeconstantes.CHARIZARD.nombre_pokemon,}
 
 
 lista_pokedex = [None, pokeconstantes.BULBASAUR,
@@ -81,30 +81,30 @@ class PokeCRUD:
 
 # UPDATE #
 
-    @classmethod
-    def editar_pokemon(self):
+    # @classmethod
+    # def editar_pokemon(self):
 
-        pokemon_indexado = int(input("""Ingrese el número del Pokemon que desea editar:\n
-                                    La lista está disponible en la opción 1 de Pokedex."""))
+    #     pokemon_indexado = int(input("""Ingrese el número del Pokemon que desea editar:\n
+    #                                 La lista está disponible en la opción 1 de Pokedex."""))
 
-        opcion_usuario = input("""Ingrese el campo que desea modificar:
-                                (Nombre/Vida/Ataque/) """).lower()
+    #     opcion_usuario = input("""Ingrese el campo que desea modificar:
+    #                             (Nombre/Vida/Ataque/) """).lower()
 
-        if pokemon_indexado in range(1, len(lista_pokedex)):
-            if opcion_usuario == 'nombre':
-                pass
-            elif opcion_usuario == 'vida':
-                pass
-            elif opcion_usuario == 'ataque':
-                pass
-            else:
-                print("Información otorgada erronea. Intente nuevamente.")
-        else:
-            print("La id de este Pokemon no existe en la base de datos.")
+    #     if pokemon_indexado in range(1, len(lista_pokedex)):
+    #         if opcion_usuario == 'nombre':
+    #             pass
+    #         elif opcion_usuario == 'vida':
+    #             pass
+    #         elif opcion_usuario == 'ataque':
+    #             pass
+    #         else:
+    #             print("Información otorgada erronea. Intente nuevamente.")
+    #     else:
+    #         print("La id de este Pokemon no existe en la base de datos.")
 
-            nuevo_nombre = input("Nuevo Nombre: ")
-            nuevos_pv = int(input("Nuevos puntos de ataque: "))
-            nuevos_pa = int(input("Nuevos puntos de ataque: "))
+    #         nuevo_nombre = input("Nuevo Nombre: ")
+    #         nuevos_pv = int(input("Nuevos puntos de ataque: "))
+    #         nuevos_pa = int(input("Nuevos puntos de ataque: "))
 
 # DELETE #
 

@@ -2,6 +2,7 @@ import pokemon
 import pokedex
 
 
+
 BULBASAUR = pokemon.TipoHierba("Bulbasaur", 1, 100, 10, "Hierba", "Fuego", "Agua")
 IVYSAUR = pokemon.TipoHierba("Ivysaur", 2, 1000, 100, "Hierba", "Fuego", "Agua")
 VENUSAUR = pokemon.TipoHierba("Venusaur", 3, 10000, 1000, "Hierba", "Fuego", "Agua")

@@ -1,5 +1,6 @@
 import pokedex
 import os
+import sistemacombate
 
 comando_usuario = 0 # Flag de continuidad
 
@@ -34,7 +35,6 @@ while comando_usuario != 4:
         if opcion_pokedex == 1:
             os.system('cls')
             pokedex.PokeCRUD.crear_nuevo_pkm()
-            pass # RELLENAR CON INSTANCIA DE NUEVO OBJETO Y APPEND A REGISTROS
         elif opcion_pokedex == 2:
             os.system('cls')
             pokedex.PokeCRUD.mostrar_registros()
@@ -44,26 +44,21 @@ while comando_usuario != 4:
         elif opcion_pokedex == 4:
             os.system('cls')
             pokedex.PokeCRUD.borrar_pokemon()
-            pass #Pasar diccionarios a listas de pares para mostrar el registro.
-            # Implementar matrices de 2 o mas capas para borrado simultaneo de entradas.
+
 
 
                                     # BATALLA #
     elif comando_usuario == 2:
 
         os.system('cls')
-        print("         ---------------------------------------------------------         ")
-        print("                     D U E L O   P O K E M O N                             ")
-        print("         ---------------------------------------------------------         ")
+        print("""----------- D U E L O   P O K E M O N -----------""")
 
         # USAR AQUI MODULO DE SISTEMA DE COMBATE
 
                                     # LOG DE COMBATE #
     elif comando_usuario == 3:
         os.system('cls')
-        print("         ---------------------------------------------------------         ")
-        print("                     E S T A D I S T I C A S                               ")
-        print("         ---------------------------------------------------------         ")
+        print("""----------- E S T A D I S T I C A S -----------""")
 
         #USAR AQUI MODULO DE ESTADISTICAS
 
