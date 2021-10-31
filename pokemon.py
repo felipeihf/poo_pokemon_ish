@@ -6,10 +6,10 @@ class Pokemon:
     def __init__(self, nombre_pkm, id_pkm, pv_pkm, pa_pkm, tipo_pkm, debilidad, fortaleza):
 
         self.nombre_pokemon = nombre_pkm
-        self.__id_pokemon = id_pkm
+        self.id_pokemon = id_pkm
         self.pv_actuales = pv_pkm
         self.pa_pokemon = pa_pkm
-        self.__tipo_pokemon = tipo_pkm
+        self.tipo_pokemon = tipo_pkm
         self.debilidad = debilidad
         self.fortaleza = fortaleza
 
