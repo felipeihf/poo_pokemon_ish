@@ -19,7 +19,7 @@ class Pokemon:
     def autoRegeneracion(self):
         if self.pv_actuales <= 100:
             self.pv_actuales += random.randint(1, 5)
-        elif self.pv_actuales> 100 and self.pv_actuales <= 1000:
+        elif self.pv_actuales > 100 and self.pv_actuales <= 1000:
             self.pv_actuales += random.randint(10, 50)
         elif self.pv_actuales > 1000 and self.pv_actuales <= 10000:
             self.pv_actuales += random.randint(100, 500)
@@ -33,7 +33,7 @@ class TipoAgua(Pokemon):
     def __init__(self, nombre_pkm, id_pkm, pv_pkm, pa_pkm, tipo_pkm, debilidad, fortaleza):
         super().__init__(nombre_pkm, id_pkm, pv_pkm, pa_pkm, tipo_pkm, debilidad, fortaleza)
 
-        self.plus_hidrobomba = 1.25
+        self.plus_hidrobomba = 1.5
 
     @classmethod
     def esquiva_fuego():
@@ -46,7 +46,7 @@ class TipoHierba(Pokemon):
     def __init__(self, nombre_pkm, id_pkm, pv_pkm, pa_pkm, tipo_pkm, debilidad, fortaleza):
         super().__init__(nombre_pkm, id_pkm, pv_pkm, pa_pkm, tipo_pkm, debilidad, fortaleza)
 
-        self.plus_rayosolar = 1.25
+        self.plus_rayosolar = 1.5
 
     @classmethod
     def esquiva_agua():
@@ -59,7 +59,7 @@ class TipoFuego(Pokemon):
     def __init__(self, nombre_pkm, id_pkm, pv_pkm, pa_pkm, tipo_pkm, debilidad, fortaleza):
         super().__init__(nombre_pkm, id_pkm, pv_pkm, pa_pkm, tipo_pkm, debilidad, fortaleza)
 
-        self.plus_rafagafuego = 1.25
+        self.plus_rafagafuego = 1.5
 
     @classmethod
     def esquiva_hierba():

@@ -34,16 +34,16 @@ while comando_usuario != 4:
                                     """))
         if opcion_pokedex == 1:
             os.system('cls')
-            pokedex.PokeCRUD.crear_nuevo_pkm()
+            pokedex.PokeCRD.crear_nuevo_pkm()
         elif opcion_pokedex == 2:
             os.system('cls')
-            pokedex.PokeCRUD.mostrar_registros()
+            pokedex.PokeCRD.mostrar_registros()
         elif opcion_pokedex == 3:
             os.system('cls')
-            pokedex.PokeCRUD.editar_pokemon()
+            print("No se encuentra disponible.")
         elif opcion_pokedex == 4:
             os.system('cls')
-            pokedex.PokeCRUD.borrar_pokemon()
+            pokedex.PokeCRD.borrar_pokemon()
 
 
 
@@ -51,16 +51,25 @@ while comando_usuario != 4:
     elif comando_usuario == 2:
 
         os.system('cls')
-        print("""----------- D U E L O   P O K E M O N -----------""")
-
-        # USAR AQUI MODULO DE SISTEMA DE COMBATE
+        print("""----------- D U E L O   P O K E M O N -----------\n""")
+        trainer1 = input("Entrenador 1, ingrese su nombre: ")
+        poke1 = int(input("Entrenador 1, elija su Pokemon (ingrese numero de Pokedex) : "))
+        trainer2 = input("Entrenador 2, ingrese su nombre: ")
+        poke2 = int(input("Entrenador 2, elija su Pokemon (ingrese numero de Pokedex) : "))
+        sistemacombate.BatallaPokemon(trainer1, poke1, trainer2, poke2)
 
                                     # LOG DE COMBATE #
     elif comando_usuario == 3:
         os.system('cls')
-        print("""----------- E S T A D I S T I C A S -----------""")
-
-        #USAR AQUI MODULO DE ESTADISTICAS
+        print("""----------- ESTADISTICAS ULTIMO COMBATE -----------""")
+        opcion = int(input("""Elija entre: (1) Jugador 1\n(2)Jugador 2\n(3)Ambos\n"""))
+        if opcion == 1:
+            print(sistemacombate.entrenador_1)
+        elif opcion == 2:
+            print(sistemacombate.entrenador_2)
+        else:
+            print(sistemacombate.entrenador_1)
+            print(sistemacombate.entrenador_2)
 
     elif comando_usuario == 4:
         print("Saliendo del juego... Gracias por jugar.")

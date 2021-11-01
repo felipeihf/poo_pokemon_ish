@@ -3,72 +3,343 @@
 from pokemon import *
 from pokedex import *
 from pokeconstantes import *
+import json
+import os
 
-class BatallaPokemon:
+def turnos(eleccion_jugador, entrenador1, entrenador2):
+    lados_moneda = [1, 2]
+    moneda = random.choice(lados_moneda)
+    if eleccion_jugador == moneda:
+        os.system('cls')
+        print(f"Entrenador {entrenador1} comienza el combate!")
+        return True
+    else:
+        os.system('cls')
+        print(f"Entrenador {entrenador2} comienza el combate!")
+        return False
 
-    def __init__(self, entrenador1, poke1, entrenador2, poke2):
+def BatallaPokemon(entrenador1, poke1, entrenador2, poke2):
 
-        self.turnoactual = 0
-        self.pokemon1 = poke1
-        entrenador_1['Pokemon Elegido'] = poke1
-        self.pokemon2 = poke2
-        entrenador_2['Pokemon Elegido'] = poke2
-        self.entrenador1 = entrenador1
-        entrenador_1['Nombre'] = entrenador1
-        self.entrenador2 = entrenador2
-        entrenador_2['Nombre'] = entrenador2
+        pokemon1 = vars(pokedex.lista_pokedex[poke1])
+        pokemon2 = vars(pokedex.lista_pokedex[poke2])
+        entrenador1 = entrenador1
+        entrenador2 = entrenador2
 
-    def moneda_partida(self, eleccion_trainer1):
+        entrenador_1['Nombre: '] = entrenador1
+        entrenador_1['Pokemon Elegido'] = pokemon1['nombre_pokemon']
 
-        eleccion_trainer1 = input("Jugador 1, escriba aquí cara o sello: ").lower()
-        lanzar_moneda = random.randint(0,1)
-        if lanzar_moneda == 0:
-            print("CARA")
-        else:
-            print("SELLO")
-        if eleccion_trainer1 == 'cara' and lanzar_moneda == 0:
-            print("Comienza el entrenador 1.")
+        entrenador_2['Nombre: '] = entrenador2
+        entrenador_2['Pokemon Elegido'] = pokemon2['nombre_pokemon']
 
-        else:
-            print("Comienza el entrenador 2.")
+        pv_pk1 = pokemon1['pv_actuales']
+        pv_pk2 = pokemon2['pv_actuales']
+
+        pa_pk1 = pokemon1['pa_pokemon']
+        pa_pk2 = pokemon2['pa_pokemon']
+
+        os.system('cls')
+        print(f"{entrenador1} ha elegido al siguiente Pokemon: {json.dumps(pokemon1, indent=1)}")
+        print(f"{entrenador2} ha elegido al siguiente Pokemon: {json.dumps(pokemon2, indent=1)}")
+
+        elige_lado = int(input("""Jugador 1, elija un lado de la moneda: \n
+                                (1) CARA\n
+                                (2) SELLO\n"""))
+
+        inicio_ronda = turnos(elige_lado, entrenador1, entrenador2)
+        if inicio_ronda:
+
+            contador_turnos = 0
+
+            while pv_pk1 != 0 and pv_pk2 != 0:
+                registro_ply1 = []
+                registro_ply2 = []
+
+                comando_ply1 = int(input(f"""{entrenador1} :
+                                    ¿Qué debería hacer {pokemon1['nombre_pokemon']}
+                                    (1) Ataque Normal
+                                    (2) Ataque Especial
+                                    (3) Retirarse"""))
+                #Ataque Normal
+                if comando_ply1 == 1:
+                    comando = ("Ataque Normal")
+                    contador_turnos += 1
+                    #Ataque
+                    pv_pk2 -= random.randint(1, pa_pk1)
+                    daño_realizado = pv_pk2 - random.randint(1, pa_pk1)
+                    print(f"{pokemon1['nombre_pokemon']} ha atacado a {pokemon2['nombre_pokemon']}")
+                    #Añade al diccionario de turno realizado
+                    este_turno = registrar_logs(contador_turnos, daño_realizado, comando, pv_pk1)
+                    registro_ply1.append(este_turno)
+                    print(f"{pokemon2['nombre_pokemon']} tiene {pv_pk2} puntos de vida restantes.")
+                    if pv_pk2 <= 0:
+                        entrenador_1['Historial de turnos:'] = registro_ply1
+                        entrenador_2['Historial de turnos:'] = registro_ply2 #Añade logs para consultar
+                        print(f"""{pokemon2['nombre_pokemon']} ha caido!\n
+                        {entrenador1} Es el ganador!""")
+                        break
+                    elif pv_pk1 <= 0:
+                        entrenador_1['Historial de turnos:'] = registro_ply1
+                        entrenador_2['Historial de turnos:'] = registro_ply2 #Añade logs para consultar
+                        print(f"""{pokemon1['nombre_pokemon']} ha caido!\n
+                        {entrenador2} Es el ganador!""")
+                        break
+                    else:
+                        pass
+
+                #Ataque Especial
+                elif comando_ply1 == 2:
+                    comando = ("Ataque Especial")
+                    contador_turnos += 1
+                    #Ataque
+                    pv_pk2 -= (random.randint(1, pa_pk1) * 1.5)
+                    print(f"{pokemon1['nombre_pokemon']} ha atacado a {pokemon2['nombre_pokemon']}")
+                    daño_realizado = pv_pk2 - (random.randint(1, pa_pk1) * 1.5)
+                    #Añade al diccionario de turno realizado
+                    este_turno = registrar_logs(contador_turnos, daño_realizado, comando, pv_pk1)
+                    registro_ply1.append(este_turno)
+                    print(f"{pokemon2['nombre_pokemon']} tiene {pv_pk2} puntos de vida restantes.")
+                    if pv_pk2 <= 0:
+                        entrenador_1['Historial de turnos:'] = registro_ply1
+                        entrenador_2['Historial de turnos:'] = registro_ply2 #Añade logs para consultar
+                        print(f"""{pokemon2['nombre_pokemon']} ha caido!\n
+                        {entrenador1} Es el ganador!""")
+                        break
+                    elif pv_pk1 <= 0:
+                        entrenador_1['Historial de turnos:'] = registro_ply1
+                        entrenador_2['Historial de turnos:'] = registro_ply2 #Añade logs para consultar
+                        print(f"""{pokemon1['nombre_pokemon']} ha caido!\n
+                        {entrenador2} Es el ganador!""")
+                        break
+                    else:
+                        pass
+
+                #TURNO JUGADOR 2#
+
+                comando_ply2 = int(input(f"""{entrenador2} :
+                                    ¿Qué debería hacer {pokemon2['nombre_pokemon']}
+                                    (1) Ataque Normal
+                                    (2) Ataque Especial"""))
+                if comando_ply2 == 1:
+                    comando = ("Ataque Normal")
+                    contador_turnos += 1
+                    #Ataque
+                    pv_pk1 -= random.randint(1, pa_pk2)
+                    print(f"{pokemon2['nombre_pokemon']} ha atacado a {pokemon1['nombre_pokemon']}")
+                    daño_realizado = pv_pk1 - random.randint(1, pa_pk2)
+                    #Añade al diccionario de turno realizado
+                    este_turno = registrar_logs(contador_turnos, daño_realizado, comando, pv_pk2)
+                    registro_ply2.append(este_turno)
+                    print(f"{pokemon1['nombre_pokemon']} tiene {pv_pk1} puntos de vida restantes.")
+                    if pv_pk2 <= 0:
+                        entrenador_1['Historial de turnos:'] = registro_ply1
+                        entrenador_2['Historial de turnos:'] = registro_ply2 #Añade logs para consultar
+                        print(f"""{pokemon2['nombre_pokemon']} ha caido!\n
+                        {entrenador1} Es el ganador!""")
+                        break
+                    elif pv_pk1 <= 0:
+                        entrenador_1['Historial de turnos:'] = registro_ply1
+                        entrenador_2['Historial de turnos:'] = registro_ply2 #Añade logs para consultar
+                        print(f"""{pokemon1['nombre_pokemon']} ha caido!\n
+                        {entrenador2} Es el ganador!""")
+                        break
+                    else:
+                        pass
+
+                #Ataque Especial
+                elif comando_ply2 == 2:
+                    comando = ("Ataque Especial")
+                    contador_turnos += 1
+                    #Ataque
+                    pv_pk1 -= (random.randint(1, pa_pk2) * 1.5)
+                    print(f"{pokemon2['nombre_pokemon']} ha atacado a {pokemon1['nombre_pokemon']}")
+                    daño_realizado = pv_pk1 - (random.randint(1, pa_pk2) * 1.5)
+                    #Añade al diccionario de turno realizado
+                    este_turno = registrar_logs(contador_turnos, daño_realizado, comando, pv_pk2)
+                    registro_ply2.append(este_turno)
+                    print(f"{pokemon1['nombre_pokemon']} tiene {pv_pk1} puntos de vida restantes.")
+                    if pv_pk2 <= 0:
+                        entrenador_1['Historial de turnos:'] = registro_ply1
+                        entrenador_2['Historial de turnos:'] = registro_ply2 #Añade logs para consultar
+                        print(f"""{pokemon2['nombre_pokemon']} ha caido!\n
+                        {entrenador1} Es el ganador!""")
+                        break
+                    elif pv_pk1 <= 0:
+                        entrenador_1['Historial de turnos:'] = registro_ply1
+                        entrenador_2['Historial de turnos:'] = registro_ply2 #Añade logs para consultar
+                        print(f"""{pokemon1['nombre_pokemon']} ha caido!\n
+                        {entrenador2} Es el ganador!""")
+                        break
+                    else:
+                        pass
 
 
-    #Ya se reciben los datos
-    #Ya se deciden los casos en que un jugador parte primero que el otro
-    #SE DEBE VERIFICAR SI SE RECIBEN BIEN LOS DATOS EN EL JUEGO
+# RONDA B #
+        elif not inicio_ronda:
+            contador_turnos = 0
+
+            while pv_pk1 != 0 and pv_pk2 != 0:
+                registro_ply1 = []
+                registro_ply2 = []
+                comando_ply2 = int(input(f"""{entrenador2} :
+                                    ¿Qué debería hacer {pokemon2['nombre_pokemon']}?
+                                    (1) Ataque Normal
+                                    (2) Ataque Especial"""))
+                if comando_ply2 == 1:
+                    comando = ("Ataque Normal")
+                    contador_turnos += 1
+                    #Ataque
+                    pv_pk1 -= random.randint(1, pa_pk2)
+                    print(f"{pokemon2['nombre_pokemon']} ha atacado a {pokemon1['nombre_pokemon']}")
+                    daño_realizado = pv_pk1 - random.randint(1, pa_pk2)
+                    #Añade al diccionario de turno realizado
+                    este_turno = registrar_logs(contador_turnos, daño_realizado, comando, pv_pk2)
+                    registro_ply2.append(este_turno)
+                    print(f"{pokemon1['nombre_pokemon']} tiene {pv_pk1} puntos de vida restantes.")
+                    if pv_pk2 <= 0:
+                        entrenador_1['Historial de turnos:'] = registro_ply1
+                        entrenador_2['Historial de turnos:'] = registro_ply2 #Añade logs para consultar
+                        print(f"""{pokemon2['nombre_pokemon']} ha caido!\n
+                        {entrenador1} Es el ganador!""")
+                        break
+                    elif pv_pk1 <= 0:
+                        entrenador_1['Historial de turnos:'] = registro_ply1
+                        entrenador_2['Historial de turnos:'] = registro_ply2 #Añade logs para consultar
+                        print(f"""{pokemon1['nombre_pokemon']} ha caido!\n
+                        {entrenador2} Es el ganador!""")
+                        break
+                    else:
+                        pass
+
+                #Ataque Especial
+                elif comando_ply2 == 2:
+                    comando = ("Ataque Especial")
+                    contador_turnos += 1
+                    #Ataque
+                    pv_pk1 -= random.randint(1, pa_pk2)
+                    print(f"{pokemon2['nombre_pokemon']} ha atacado a {pokemon1['nombre_pokemon']}")
+                    daño_realizado = pv_pk1 - (random.randint(1, pa_pk2)*1.5)
+                    #Añade al diccionario de turno realizado
+                    este_turno = registrar_logs(contador_turnos, daño_realizado, comando, pv_pk2)
+                    registro_ply2.append(este_turno)
+                    print(f"{pokemon1['nombre_pokemon']} tiene {pv_pk1} puntos de vida restantes.")
+                    if pv_pk2 <= 0:
+                        entrenador_1['Historial de turnos:'] = registro_ply1
+                        entrenador_2['Historial de turnos:'] = registro_ply2 #Añade logs para consultar
+                        print(f"""{pokemon2['nombre_pokemon']} ha caido!\n
+                        {entrenador1} Es el ganador!""")
+                        break
+                    elif pv_pk1 <= 0:
+                        entrenador_1['Historial de turnos:'] = registro_ply1
+                        entrenador_2['Historial de turnos:'] = registro_ply2 #Añade logs para consultar
+                        print(f"""{pokemon1['nombre_pokemon']} ha caido!\n
+                        {entrenador2} Es el ganador!""")
+                        break
+                    else:
+                        pass
+
+                elif comando_ply2 == 3:
+                    comando = ("Abandono")
+                    entrenador_1['Historial de turnos:'] = registro_ply1
+                    entrenador_2['Historial de turnos:'] = registro_ply2 #Añade logs para consultar
+                    print(f"""{pokemon2['nombre_pokemon']} se retira del combate!\n
+                            {entrenador1} Es el ganador!""")
+                    break
 
 
-    #POR HACER:
-    #Para iniciar la pelea, debe partir el jugador que gana la tirada de moneda
-    #Una vez eligen sus Pokemons, lo primero que debo establecer es la ventaja de tipos
-    # 3 casos: mismo tipo (no hay ventaja)
-    # fuerte contra debil (el primero tiene ventaja)
-    # debil contra fuerte (el segundo tiene ventaja)
-    #una vez eligen los pokemons que usar, la ventaja se determina automaticamente (si la hay)
+                comando_ply1 = int(input(f"""{entrenador1} :
+                                    ¿Qué debería hacer {pokemon1['nombre_pokemon']}
+                                    (1) Ataque Normal
+                                    (2) Ataque Especial
+                                    (3) Retirarse"""))
+                #Ataque Normal
+                if comando_ply1 == 1:
+                    comando = ("Ataque Normal")
+                    contador_turnos += 1
+                    #Ataque
+                    pv_pk2 -= random.randint(1, pa_pk1)
+                    print(f"{pokemon1['nombre_pokemon']} ha atacado a {pokemon2['nombre_pokemon']}")
+                    daño_realizado = pv_pk2 - random.randint(1, pa_pk1)
+                    #Añade al diccionario de turno realizado
+                    este_turno = registrar_logs(contador_turnos, daño_realizado, comando, pv_pk1)
+                    registro_ply1.append(este_turno)
+                    print(f"{pokemon2['nombre_pokemon']} tiene {pv_pk2} puntos de vida restantes.")
+                    if pv_pk2 <= 0:
+                        entrenador_1['Historial de turnos:'] = registro_ply1
+                        entrenador_2['Historial de turnos:'] = registro_ply2 #Añade logs para consultar
+                        print(f"""{pokemon2['nombre_pokemon']} ha caido!\n
+                        {entrenador1} Es el ganador!""")
+                        break
+                    elif pv_pk1 <= 0:
+                        entrenador_1['Historial de turnos:'] = registro_ply1
+                        entrenador_2['Historial de turnos:'] = registro_ply2 #Añade logs para consultar
+                        print(f"""{pokemon1['nombre_pokemon']} ha caido!\n
+                        {entrenador2} Es el ganador!""")
+                        break
+                    else:
+                        pass
 
-    # TURNOS #
-    #La pelea debe dar la opcion entre dos ataques: el normal (con PA) y el especial del tipo.
-    #Restar parametros segun ventajas y caracteristicas de pokemons
-    #Chequear estado del juego (pvs actuales para ver ganador)
-    #Si el ganador aun no está determinado, sigue el otro jugador
-    #Turno del otro jugador, se le invita a realizar una acción
+                #Ataque Especial
+                elif comando_ply1 == 2:
+                    comando = ("Ataque Especial")
+                    contador_turnos += 1
+                    #Ataque
+                    pv_pk2 -= (random.randint(1, pa_pk1) * 1.5)
+                    print(f"{pokemon1['nombre_pokemon']} ha atacado a {pokemon2['nombre_pokemon']}")
+                    daño_realizado = pv_pk2 - (random.randint(1, pa_pk1) * 1.5)
+                    #Añade al diccionario de turno realizado
+                    este_turno = registrar_logs(contador_turnos, daño_realizado, comando, pv_pk1)
+                    registro_ply1.append(este_turno)
+                    print(f"{pokemon2['nombre_pokemon']} tiene {pv_pk2} puntos de vida restantes.")
+                    if pv_pk2 <= 0:
+                        entrenador_1['Historial de turnos:'] = registro_ply1
+                        entrenador_2['Historial de turnos:'] = registro_ply2 #Añade logs para consultar
+                        print(f"""{pokemon2['nombre_pokemon']} ha caido!\n
+                        {entrenador1} Es el ganador!""")
+                        break
+                    elif pv_pk1 <= 0:
+                        entrenador_1['Historial de turnos:'] = registro_ply1
+                        entrenador_2['Historial de turnos:'] = registro_ply2 #Añade logs para consultar
+                        print(f"""{pokemon1['nombre_pokemon']} ha caido!\n
+                        {entrenador2} Es el ganador!""")
+                        break
+                    else:
+                        pass
 
-    #El vector de turno debe incluir:
-    # [nro turno, accion realizada, daño realizado, pv restantes]
-    #agregar lista a llave del diccionario 'Turnos realizados'
+                elif comando_ply1 == 3:
+                    comando = ("Abandono")
+                    entrenador_1['Historial de turnos:'] = registro_ply1
+                    entrenador_2['Historial de turnos:'] = registro_ply2 #Añade logs para consultar
+                    print(f"""{pokemon1['nombre_pokemon']} se retira del combate!\n
+                            {entrenador2} Es el ganador!""")
+                    break
+
+                
 
 
+def registrar_logs(contador_turnos, daño_realizado, comando, pv_pk):
+    registro_turno = {'Turno: ': None,
+                                    'Ataque Usado: ': None,
+                                    'Daño realizado: ': None,
+                                    'Pv de Pokemon restantes:': None,
+                                    }
+    registro_turno['Turno: '] = contador_turnos
+    registro_turno['Daño realizado: '] = daño_realizado
+    registro_turno['Ataque Usado: '] = comando
+    registro_turno['Pv de Pokemon restantes:'] = pv_pk
+    return registro_turno
 
-# diccionario por cada maestro
+
+# Estadisticas #
+
 
 entrenador_1 = {'Nombre: ': None,
                 'Pokemon Elegido': None,
-                'Turnos realizados': [None, ],
+                'Historial de turnos:': None
                 }
 
 entrenador_2 = {'Nombre: ': None,
                 'Pokemon Elegido': None,
-                'Turnos realizados': [None, ],
+                'Historial de turnos:': None,
                 }
 
-historial_turnos = None
+

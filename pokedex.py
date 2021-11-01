@@ -25,10 +25,8 @@ lista_pokedex = [None, pokeconstantes.BULBASAUR,
                         pokeconstantes.CHARIZARD,]
 
 
-class PokeCRUD:
+class PokeCRD:
 
-    def __init__(self):
-        pass
 
 # READ #
     @classmethod
@@ -79,33 +77,6 @@ class PokeCRUD:
                 lista_pokedex[-1].__dict__), indent=1))
             print("Pokemon registrado con éxito")
 
-# UPDATE #
-
-    # @classmethod
-    # def editar_pokemon(self):
-
-    #     pokemon_indexado = int(input("""Ingrese el número del Pokemon que desea editar:\n
-    #                                 La lista está disponible en la opción 1 de Pokedex."""))
-
-    #     opcion_usuario = input("""Ingrese el campo que desea modificar:
-    #                             (Nombre/Vida/Ataque/) """).lower()
-
-    #     if pokemon_indexado in range(1, len(lista_pokedex)):
-    #         if opcion_usuario == 'nombre':
-    #             pass
-    #         elif opcion_usuario == 'vida':
-    #             pass
-    #         elif opcion_usuario == 'ataque':
-    #             pass
-    #         else:
-    #             print("Información otorgada erronea. Intente nuevamente.")
-    #     else:
-    #         print("La id de este Pokemon no existe en la base de datos.")
-
-    #         nuevo_nombre = input("Nuevo Nombre: ")
-    #         nuevos_pv = int(input("Nuevos puntos de ataque: "))
-    #         nuevos_pa = int(input("Nuevos puntos de ataque: "))
-
 # DELETE #
 
     @classmethod
@@ -120,6 +91,16 @@ class PokeCRUD:
             print(json.dumps((
                 lista_pokedex[-1].__dict__), indent=1))
             print("Pokemon borrado con éxito")
+
+
+# falta UPDATE #
+
+
+
+
+
+
+
 
 
 
