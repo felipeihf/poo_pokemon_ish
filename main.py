@@ -1,6 +1,10 @@
 import os
 import sistemaCRUD
 
+#PARA EMPEZAR A JUGAR, SE DEBEN CREAR AL MENOS 2 POKEMON ENTRE TIPO AGUA, FUEGO O HIERBA
+#EL PROGRAMA OTORGA LOS PASOS A SEGUIR PARA REGISTRARSE
+#EL SISTEMA SE ENCARGA DEL RESTO
+
 opcion = 0
 while opcion != 4:
     print("""--------------- POKEMON --------------
