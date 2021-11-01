@@ -1,5 +1,6 @@
 import os
 import sistemaCRUD
+import sistemacombate
 
 #PARA EMPEZAR A JUGAR, SE DEBEN CREAR AL MENOS 2 POKEMON ENTRE TIPO AGUA, FUEGO O HIERBA
 #EL PROGRAMA OTORGA LOS PASOS A SEGUIR PARA REGISTRARSE
@@ -38,11 +39,10 @@ while opcion != 4:
         elif opcion_crud == 4:
             sistemaCRUD.borrar_pokemon()
 
-
-
     elif opcion == 2:
         os.system('cls')
         print("""----------- D U E L O   P O K E M O N -----------\n""")
+        sistemacombate.BATALLA_POKEMON()
 
     elif opcion == 3:
         os.system('cls')

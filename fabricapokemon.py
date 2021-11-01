@@ -33,11 +33,17 @@ class Pokemon:
     def get_nombre(self):
         return self.nombre
 
+    def get_puntosvida(self):
+        return self.nombre
+
     def get_tipo(self):
         return self.tipo
 
     def get_debilidad(self):
         return self.debilidad
+
+    def get_fortaleza(self):
+        return self.fortaleza
 
 
 
@@ -54,7 +60,12 @@ class TipoAgua(Pokemon):
         return self.puntos_ataque * 2
 
     def esquiva_fuego(self):
-        pass
+        probabilidad = [True, False]
+        resultado = random.choice(probabilidad)
+        if resultado:
+            return 1
+        else:
+            return 0
 
 
 class TipoFuego(Pokemon):
@@ -66,7 +77,12 @@ class TipoFuego(Pokemon):
         return self.puntos_ataque * 2
 
     def esquiva_hierba(self):
-        pass
+        probabilidad = [True, False]
+        resultado = random.choice(probabilidad)
+        if resultado:
+            return 1
+        else:
+            return 0
 
 class TipoHierba(Pokemon):
 
@@ -77,4 +93,9 @@ class TipoHierba(Pokemon):
         return self.puntos_ataque * 2
 
     def esquiva_agua(self):
-        pass
+        probabilidad = [True, False]
+        resultado = random.choice(probabilidad)
+        if resultado:
+            return 1
+        else:
+            return 0
